@@ -8,7 +8,7 @@ from src.database import Base
 metadata = MetaData()
 
 user = Table(
-    "user",
+    "user",  # not 'user' because conflict with default table 'user' in postgres =(
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
     Column("email", String, nullable=False),

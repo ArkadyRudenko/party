@@ -14,13 +14,13 @@ party = Table(
     Column('description', String, nullable=False),
     Column('created_at', TIMESTAMP, default=datetime.utcnow),
     Column('date', TIMESTAMP, nullable=False),
-    Column('owner_id', Integer, ForeignKey(user.c.id)),
+    Column('owner_id', Integer, ForeignKey(user.c.id, ondelete="CASCADE")),
 )
 
 user_party = Table(
     'user_party',
     metadata,
-    Column('user_id', Integer, ForeignKey(user.c.id)),
-    Column('party_id', Integer, ForeignKey(party.c.id)),
+    Column('user_id', Integer, ForeignKey(user.c.id, ondelete="CASCADE")),
+    Column('party_id', Integer, ForeignKey(party.c.id, ondelete="CASCADE")),
     PrimaryKeyConstraint('user_id', 'party_id'),
 )

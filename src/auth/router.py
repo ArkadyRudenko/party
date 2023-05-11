@@ -1,9 +1,8 @@
-from select import select
-
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.auth.models import user
+from src.party.router import current_user
+from src.auth.models import User
 from src.database import get_async_session
 
 router = APIRouter(
@@ -13,7 +12,5 @@ router = APIRouter(
 
 
 @router.get('/all')
-async def get_all(session: AsyncSession = Depends(get_async_session)):
-    query = select(user).where(len(user.c.username) > 1)
-    result = await session.execute(query)
-    return result.all()
+async def get_self(session: AsyncSession = Depends(get_async_session), user: User = Depends(current_user)):
+    return 'account info'
