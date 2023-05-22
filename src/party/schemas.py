@@ -16,5 +16,4 @@ class PartyRead(BaseModel):
     created_at: date
     date: date
     owner_id: int
-
-
+    count_of_guests: int

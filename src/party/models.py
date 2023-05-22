@@ -15,6 +15,7 @@ party = Table(
     Column('created_at', TIMESTAMP, default=datetime.utcnow),
     Column('date', TIMESTAMP, nullable=False),
     Column('owner_id', Integer, ForeignKey(user.c.id, ondelete="CASCADE")),
+    Column('count_of_guests', Integer, default=1),
 )
 
 user_party = Table(
@@ -23,4 +24,11 @@ user_party = Table(
     Column('user_id', Integer, ForeignKey(user.c.id, ondelete="CASCADE")),
     Column('party_id', Integer, ForeignKey(party.c.id, ondelete="CASCADE")),
     PrimaryKeyConstraint('user_id', 'party_id'),
+)
+
+invitations = Table(
+    'invitations',
+    metadata,
+    Column('party_id', Integer, ForeignKey(party.c.id, ondelete="CASCADE")),
+    Column('guest_id', Integer, ForeignKey(user.c.id, ondelete="CASCADE")),
 )
